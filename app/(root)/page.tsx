@@ -1,8 +1,34 @@
 import Link from "next/link";
 
+import QuestionCard from "@/components/cards/QuestionCard";
+import HomeFilter from "@/components/filters/HomeFilter";
 import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
 import ROUTES from "@/constants/routes";
+
+const questions = [
+  {
+    _id: "1",
+    title: "How to learn react",
+    // description:
+    //   "I want to learn react. So, which resources should I use for it",
+    tags: [
+      { _id: "1", name: "react" },
+      { _id: "2", name: "javascript" },
+    ],
+    answers: 2,
+    upvotes: 4,
+    downvotes: 7,
+    views: 15,
+    author: {
+      _id: "1",
+      name: "Muhammad Sarmad",
+      image:
+        "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?semt=ais_hybrid",
+    },
+    createdAt: new Date("2024-11-01"),
+  },
+];
 
 interface SearchParams {
   searchParams: Promise<{ [key: string]: string }>;
@@ -29,8 +55,12 @@ const Home = async ({ searchParams }: SearchParams) => {
           otherClasses="flex-1"
         />
       </section>
-      HomeFIlter
-      <div className="mt-10 flex w-full flex-col gap-6"></div>
+      <HomeFilter />
+      <div className="mt-10 flex w-full flex-col gap-6">
+        {questions.map((question) => (
+          <QuestionCard key={question._id} question={question} />
+        ))}
+      </div>
     </>
   );
 };
